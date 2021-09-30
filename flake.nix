@@ -7,7 +7,7 @@
   };
 
   outputs = { self, nixpkgs, utils, ... }:
-    utils.lib.eachDefaultSystem (system:
+    (utils.lib.eachDefaultSystem (system:
       let
         inherit (lib) attrValues;
         pkgs = nixpkgs.legacyPackages.${system};
@@ -20,8 +20,9 @@
         
         defaultPackage = package;
         
-        defaultTemplate = self.templates.thisTemplate;
-        templates.thisTemplate.path = ./.;
-        templates.thisTemplate.description = "A default flake template";
-      });
+    })) // {
+      defaultTemplate = self.templates.thisTemplate;
+      templates.thisTemplate.path = ./.;
+      templates.thisTemplate.description = "A default flake template";
+    };
 }
