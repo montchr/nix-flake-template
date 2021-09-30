@@ -20,10 +20,8 @@
         
         defaultPackage = package;
         
-        defaultTemplate = self.templates.default;
-        templates.default = {
-          path = ./.;
-          description = "A default flake template";
-        };
+        defaultTemplate = self.templates.thisTemplate;
+        templates.thisTemplate.path = ./.;
+        templates.thisTemplate.description = "A default flake template";
       });
 }
