@@ -19,4 +19,10 @@
         };
         defaultPackage = package;
       });
+      
+    defaultTemplate = self.templates.default;
+    templates.default = {
+      path = ./.;
+      description = "A default flake template";
+    };
 }
