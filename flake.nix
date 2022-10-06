@@ -9,7 +9,6 @@
   inputs = {
     nixos-stable.url = "github:NixOS/nixpkgs/nixos-22.05";
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-trunk.url = "github:NixOS/nixpkgs/master";
 
     flake-parts.url = "github:hercules-ci/flake-parts";
     flake-utils.url = "github:numtide/flake-utils";
@@ -42,7 +41,6 @@
     lib = nixos-unstable.lib.extend (lfinal: lprev: {
       std = nix-std;
       eso = import ./lib {
-        inherit peers;
         flake = self;
         lib = lfinal;
       };
@@ -51,7 +49,6 @@
     systems = supportedSystems;
     imports = [
       ./devShells
-      ./overlays
       ./packages
     ];
     perSystem = {system, ...}: let
@@ -59,12 +56,8 @@
         inherit system;
         config.allowUnfree = true;
         overlays = [
-          self.overlays.externalPackages
           (final: prev: {inherit lib;})
-          self.overlays.packages
-          self.overlays.iosevka
-          self.overlays.firefox-addons
-          self.overlays.overrides
+          # self.overlays.packages
         ];
       };
     in {

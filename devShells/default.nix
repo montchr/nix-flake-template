@@ -12,12 +12,12 @@
       (pkgs)
       alejandra
       editorconfig-checker
-      prettier
       shellcheck
       ssh-to-age
       sops
       treefmt
       ;
+    inherit (pkgs.nodePackages) prettier;
 
     userConfigHome = ''''${XDG_CONFIG_HOME:-$HOME/.config}'';
 
