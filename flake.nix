@@ -66,6 +66,12 @@
     };
     flake = {
       lib = lib.eso;
+      templates.default = {
+        path = ./.;
+        description = ''
+          nix-flake-template
+        '';
+      };
     };
   });
 }
