@@ -1,15 +1,19 @@
-##: nix build artifacts
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+##: build artifacts
+build
 result
 
 ##: dependencies / package managers
 node_modules/
 .composer/
+.pnp/
+.pnp.js
 
-##: editor files
-.idea
-
-##: local-only files
+##: private/local files
 *.local
+.env*.local
+*.pem
 
 ##: cache/state files
 *.tfstate*
@@ -19,19 +23,28 @@ node_modules/
 .npm/
 .terraform/
 
+##: testing
+/coverage
+
 ##: virtual machine images
 *.qcow2
 *.img
 
-##: operating system clutter
+##: os clutter
 .DS_Store
 
 ##: temporary files
 *.tmp
 tmp/
 
-##: logs
+##: javascript/typescript
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 *.tsbuildinfo
+
+##: next.js
+.next/
+next-env.d.ts
+out/
+.vercel
