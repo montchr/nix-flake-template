@@ -15,6 +15,7 @@
     nix-std.url = "github:chessai/nix-std";
 
     devshell.url = "github:numtide/devshell";
+    treefmt-flake.url = "github:srid/treefmt-flake";
     nixago.url = "github:nix-community/nixago";
     sops-nix.url = "github:Mic92/sops-nix";
 
@@ -25,53 +26,17 @@
 
   outputs = {
     self,
-    nixpkgs,
-    nixos-unstable,
     flake-parts,
-    flake-utils,
-    nix-std,
+    treefmt-flake,
     ...
-  }: let
-    supportedSystems = with flake-utils.lib.system; [
-      x86_64-linux
-      x86_64-darwin
-      aarch64-darwin
-    ];
-
-    lib = nixos-unstable.lib.extend (lfinal: lprev: {
-      std = nix-std;
-      eso = import ./lib {
-        flake = self;
-        lib = lfinal;
-      };
-    });
-  in (flake-parts.lib.mkFlake {inherit self;} {
-    systems = supportedSystems;
-    imports = [
-      ./devShells
-      ./packages
-    ];
-    perSystem = {system, ...}: let
-      pkgs = import nixpkgs {
-        inherit system;
-        config.allowUnfree = true;
-        overlays = [
-          (final: prev: {inherit lib;})
-          # self.overlays.packages
-        ];
-      };
-    in {
-      _module.args.pkgs = pkgs;
-      formatter = pkgs.alejandra;
+  }:
+    flake-parts.lib.mkFlake
+    {inherit self;}
+    {
+      imports = [
+        treefmt-flake.flakeModule
+        ./nix
+      ];
+      systems = ["x86_64-linux" "x86_64-darwin" "aarch64-darwin" "aarch64-linux"];
     };
-    flake = {
-      lib = lib.eso;
-      templates.default = {
-        path = ./.;
-        description = ''
-          nix-flake-template
-        '';
-      };
-    };
-  });
 }
