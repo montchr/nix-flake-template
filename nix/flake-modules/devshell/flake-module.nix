@@ -13,10 +13,10 @@ in {
       devshellProfiles = l.mkOption {
         type = l.types.lazyAttrsOf l.types.unspecified;
         default = {};
-        # apply = l.mapAttrs (k: v: {
-        #   _file = "${toString self.outPath}/flake.nix#devshellProfiles.${k}";
-        #   imports = [v];
-        # });
+        apply = l.mapAttrs (k: v: {
+          _file = "${toString self.outPath}/flake.nix#devshellProfiles.${k}";
+          imports = [v];
+        });
         description = ''
           Modules with side-effects importable by <numtide/devshell>.
         '';
