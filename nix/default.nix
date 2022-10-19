@@ -4,5 +4,6 @@
     ./devshells
     ./formatters
     ./packages
+    ./templates
   ];
 }
