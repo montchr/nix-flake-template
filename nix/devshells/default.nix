@@ -1,11 +1,12 @@
 {self, ...}: let
-  inherit (self.devshellProfiles) formatters;
+  inherit (self.devshellProfiles) common formatters;
 in {
+  imports = [./profiles];
   perSystem = {inputs', ...}: let
     inherit (inputs'.devshell.legacyPackages) mkShell;
   in {
     devShells.default = mkShell {
-      imports = [formatters];
+      imports = [common formatters];
       name = "nix-flake-template";
     };
   };
