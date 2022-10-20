@@ -12,11 +12,14 @@
   flake.devshellProfiles.formatters = {pkgs, ...}: {
     commands = [
       {
-        name = "format";
-        help = "apply formatting rules to source files";
-        command = ''nix run $PRJ_ROOT#format'';
+        category = "formatters";
+        package = pkgs.nodePackages.prettier;
       }
     ];
-    packages = (getSystem pkgs.system).treefmt.buildInputs ++ [];
+    packages =
+      (getSystem pkgs.system).treefmt.buildInputs
+      ++ (with pkgs; [
+        editorconfig-checker
+      ]);
   };
 }

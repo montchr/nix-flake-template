@@ -1,14 +1,32 @@
-# SPDX-FileCopyrightText: 2022 Chris Montgomery
-#
-# SPDX-License-Identifier: GPL-3.0-or-later
-
 {pkgs, ...}: {
   commands = [
+    {
+      category = "tools";
+      package = pkgs.yarn;
+    }
+    {
+      category = "ci";
+      package = pkgs.lefthook;
+    }
+    {
+      category = "ci";
+      package = pkgs.commitlint;
+    }
+    {
+      category = "linters";
+      package = pkgs.nodePackages.eslint;
+    }
+    {
+      category = "linters";
+      package = pkgs.nodePackages.stylelint;
+    }
     {
       category = "legal";
       package = pkgs.reuse;
     }
   ];
-  packages = [];
+  packages = with pkgs; [
+    nodejs
+  ];
   env = [];
 }

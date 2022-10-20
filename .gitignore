@@ -4,11 +4,19 @@
 build
 result
 
-##: dependencies / package managers
+##: yarn/npm/etc.
 node_modules/
+.yarn/*
+!.yarn/cache
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
+##: php/composer/etc.
 .composer/
-.pnp/
-.pnp.js
+vendor/
 
 ##: private/local files
 *.local
