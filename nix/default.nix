@@ -1,4 +1,5 @@
-{
+{self, ...}: let
+in {
   imports = [
     ./flake-modules
     ./devshells

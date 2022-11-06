@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+
+yarn dlx commitlint --edit "$1"
