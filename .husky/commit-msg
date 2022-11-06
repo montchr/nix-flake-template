@@ -4,4 +4,4 @@
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-yarn dlx commitlint --edit "$1"
+yarn commitlint --edit "$1"
