@@ -1,5 +1,6 @@
 {
   "name": "nix-flake-template",
+  "license": "GPL-3.0-or-later",
   "packageManager": "yarn@3.2.4",
   "devDependencies": {
     "commitlint": "^17.2.0",
