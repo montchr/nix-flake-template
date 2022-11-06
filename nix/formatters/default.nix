@@ -1,8 +1,15 @@
+# SPDX-FileCopyrightText: 2022 Chris Montgomery <chris@cdom.io>
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 {
   self,
   getSystem,
   ...
 }: {
+  imports = [
+    ./nixagoFiles/prettierrc.json.nix
+  ];
   perSystem = {pkgs, ...}: {
     treefmt.formatters = {
       inherit (pkgs) alejandra shellcheck shfmt;
@@ -12,8 +19,12 @@
   flake.devshellProfiles.formatters = {pkgs, ...}: {
     commands = [
       {
+        name = "format";
+        help = "format files with treefmt";
         category = "formatters";
-        package = pkgs.nodePackages.prettier;
+        command = ''
+          ${pkgs.treefmt}/bin/treefmt --no-cache -- $@
+        '';
       }
     ];
     packages =
