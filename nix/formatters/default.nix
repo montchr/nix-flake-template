@@ -3,6 +3,9 @@
   getSystem,
   ...
 }: {
+  imports = [
+    ./nixagoFiles/prettierrc.json.nix
+  ];
   perSystem = {pkgs, ...}: {
     treefmt.formatters = {
       inherit (pkgs) alejandra shellcheck shfmt;
@@ -12,8 +15,12 @@
   flake.devshellProfiles.formatters = {pkgs, ...}: {
     commands = [
       {
+        name = "format";
+        help = "format files with treefmt";
         category = "formatters";
-        package = pkgs.nodePackages.prettier;
+        command = ''
+          ${pkgs.treefmt}/bin/treefmt --no-cache -- $@
+        '';
       }
     ];
     packages =
