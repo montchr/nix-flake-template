@@ -6,9 +6,7 @@ Source: https://github.com/montchr/nix-flake-template
 Files: *commitlintrc.json
        .editorconfig
        .gitignore
-       .pnp.cjs
-       .pnp.loader.mjs
-       .yarnrc.yml
+       .yarn*
        package.json
        renovate.json
        treefmt.toml
