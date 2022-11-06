@@ -3,8 +3,17 @@ Upstream-Name: nix-flake-template
 Upstream-Contact: Chris Montgomery <chris@cdom.io>
 Source: https://github.com/montchr/nix-flake-template
 
-# Sample paragraph, commented out:
-#
-# Files: src/*
-# Copyright: $YEAR $NAME <$CONTACT>
-# License: ...
+Files: *commitlintrc.json
+       .editorconfig
+       .gitignore
+       .pnp.cjs
+       .pnp.loader.mjs
+       .yarnrc.yml
+       package.json
+       renovate.json
+       treefmt.toml
+       *.lock
+       *.md
+       *.org
+Copyright: 2022 Chris Montgomery <chris@cdom.io>
+License: CC0-1.0
