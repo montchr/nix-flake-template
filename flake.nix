@@ -3,38 +3,35 @@
 {
   description = "nix-flake-template";
 
-  inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-
-    devshell.url = "github:numtide/devshell";
-    flake-parts.url = "github:hercules-ci/flake-parts";
-    treefmt-flake.url = "github:srid/treefmt-flake";
-    nixago.url = "github:nix-community/nixago";
-
-    devshell.inputs.nixpkgs.follows = "nixpkgs";
-    flake-parts.inputs.nixpkgs-lib.follows = "nixpkgs";
-    nixago.inputs.nixpkgs.follows = "nixpkgs";
-  };
+  inputs.std.url = "github:divnix/std";
+  inputs.std.inputs.nixpkgs.follows = "nixpkgs";
+  inputs.std.inputs.mdbook-kroki-preprocessor.follows = "std/blank";
+  inputs.nixpkgs-fork-add-lint-staged.url = "github:montchr/nixpkgs/add-lint-staged";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
   outputs = {
     self,
-    flake-parts,
-    treefmt-flake,
+    std,
     ...
-  }: let
-    systems = ["x86_64-linux" "x86_64-darwin" "aarch64-darwin" "aarch64-linux"];
-  in
-    flake-parts.lib.mkFlake
-    {inherit self;}
-    {
-      inherit systems;
-      imports = [
-        treefmt-flake.flakeModule
-        ./nix
+  } @ inputs:
+    std.growOn {
+      inherit inputs;
+      cellsFrom = ./cells;
+      cellBlocks = with std.blockTypes; [
+        (functions "devshellProfiles")
+        (functions "functions")
+
+        (nixago "configs")
+        (nixago "nixago")
+
+        (data "templates")
+
+        (devshells "devshells")
       ];
-      flake = {
-        project.meta.name = "nix-flake-template";
-      };
+    }
+    {
+      devShells = std.harvest inputs.self ["core" "devshells"];
+      templates = std.harvest inputs.self ["core" "templates"];
     };
 
   nixConfig = {
