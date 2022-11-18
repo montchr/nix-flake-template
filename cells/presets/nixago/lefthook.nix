@@ -22,6 +22,7 @@
         ];
       };
       # FIXME: add lint-staged pebble
+
       # lint-staged = {
       #   run = "lint-staged {staged_files}";
       #   skip = ["merge" "rebase"];
