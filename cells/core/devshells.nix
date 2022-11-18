@@ -21,6 +21,7 @@ in
         cell.configs.editorconfig
         cell.configs.just
         cell.configs.lefthook
+        cell.configs.lint-staged
         cell.configs.prettier
         cell.configs.treefmt
         cells.reuse.configs.just

@@ -171,22 +171,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-fork-add-lint-staged": {
-      "locked": {
-        "lastModified": 1668633304,
-        "narHash": "sha256-WEyzaiiO+C2xoVmI5ectWQ5dyobA0Q5q25Z1Js5KMzM=",
-        "owner": "montchr",
-        "repo": "nixpkgs",
-        "rev": "d04f245ee6bcdb89e1d7e0741f1cb2da1d3717a2",
-        "type": "github"
-      },
-      "original": {
-        "owner": "montchr",
-        "ref": "add-lint-staged",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nosys": {
       "locked": {
         "lastModified": 1667881534,
@@ -205,7 +189,6 @@
     "root": {
       "inputs": {
         "nixpkgs": "nixpkgs",
-        "nixpkgs-fork-add-lint-staged": "nixpkgs-fork-add-lint-staged",
         "std": "std"
       }
     },

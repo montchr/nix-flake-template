@@ -20,6 +20,9 @@ in {
     };
   };
   lefthook = presets.nixago.lefthook {};
+  lint-staged = presets.nixago.lint-staged {
+    hook.mode = "copy";
+  };
   prettier = presets.nixago.prettier {};
   treefmt = presets.nixago.treefmt {};
 }

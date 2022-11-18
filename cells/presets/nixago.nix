@@ -19,6 +19,9 @@ in {
   lefthook = std.nixago.lefthook {
     configData = import ./nixago/lefthook.nix;
   };
+  lint-staged = lib.nixago.lint-staged {
+    configData = import ./nixago/lint-staged.nix {inherit inputs;};
+  };
   prettier = lib.nixago.prettier {
     configData = import ./nixago/prettier.nix;
   };

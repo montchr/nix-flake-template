@@ -7,32 +7,45 @@
   inputs.std.url = "github:divnix/std";
   inputs.std.inputs.nixpkgs.follows = "nixpkgs";
   inputs.std.inputs.mdbook-kroki-preprocessor.follows = "std/blank";
-  inputs.nixpkgs-fork-add-lint-staged.url = "github:montchr/nixpkgs/add-lint-staged";
+
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
   outputs = {
-    self,
     std,
+    self,
     ...
-  } @ inputs:
-    std.growOn {
+  } @ inputs: let
+    inherit (std) blockTypes growOn harvest;
+  in
+    growOn {
       inherit inputs;
       cellsFrom = ./cells;
-      cellBlocks = with std.blockTypes; [
-        (functions "devshellProfiles")
-        (functions "functions")
+      cellBlocks = [
+        ##: --- public ---
 
-        (nixago "configs")
-        (nixago "nixago")
+        #: lib
+        (blockTypes.functions "functions")
 
-        (data "templates")
+        #: presets
+        (blockTypes.data "templates")
+        (blockTypes.nixago "nixago")
 
-        (devshells "devshells")
+        ##: --- internal ---
+
+        #: _automation
+        (blockTypes.installables "packages")
+
+        #: core
+        # FIXME: move to `_automation`
+        (blockTypes.devshells "devshells")
+        (blockTypes.nixago "nixago")
+        (blockTypes.nixago "configs")
       ];
     }
     {
-      devShells = std.harvest inputs.self ["core" "devshells"];
-      templates = std.harvest inputs.self ["core" "templates"];
+      devShells = harvest self ["core" "devshells"];
+      packages = harvest self [["_automation" "packages"]];
+      templates = harvest self ["core" "templates"];
     };
 
   nixConfig = {
