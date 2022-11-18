@@ -10,16 +10,9 @@
   l = inputs.nixpkgs.lib // builtins;
   pkgs' = inputs.nixpkgs;
 in {
-  commitlint = presets.nixago.commitlint {};
-  editorconfig = presets.nixago.editorconfig {
-    hook.mode = "copy";
-  };
   just = std.nixago.just {
     configData = {
       tasks = import ./tasks.nix;
     };
   };
-  lefthook = presets.nixago.lefthook {};
-  prettier = presets.nixago.prettier {};
-  treefmt = presets.nixago.treefmt {};
 }

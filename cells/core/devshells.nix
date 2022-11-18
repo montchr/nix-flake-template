@@ -5,7 +5,7 @@
   inputs,
   cell,
 }: let
-  inherit (inputs) std;
+  inherit (inputs) cells std;
   l = inputs.nixpkgs.lib // builtins;
   l' = inputs.cells.lib.functions;
   pkgs' = inputs.nixpkgs;
@@ -19,9 +19,11 @@ in
       nixago = [
         cell.configs.commitlint
         cell.configs.editorconfig
+        cell.configs.just
         cell.configs.lefthook
         cell.configs.prettier
         cell.configs.treefmt
+        cells.reuse.configs.just
       ];
       packages = [
         pkgs'.gh
