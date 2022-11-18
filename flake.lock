@@ -188,6 +188,10 @@
     },
     "root": {
       "inputs": {
+        "dmerge": [
+          "std",
+          "dmerge"
+        ],
         "nixpkgs": "nixpkgs",
         "std": "std"
       }

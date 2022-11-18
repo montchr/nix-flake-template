@@ -8,6 +8,8 @@
   inputs.std.inputs.nixpkgs.follows = "nixpkgs";
   inputs.std.inputs.mdbook-kroki-preprocessor.follows = "std/blank";
 
+  inputs.dmerge.follows = "std/dmerge";
+
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
   outputs = {
