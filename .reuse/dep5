@@ -3,15 +3,28 @@ Upstream-Name: nix-flake-template
 Upstream-Contact: Chris Montgomery <chris@cdom.io>
 Source: https://github.com/montchr/nix-flake-template
 
-Files: *commitlintrc.json
-       .editorconfig
-       .gitignore
-       .yarn*
-       package.json
-       renovate.json
-       treefmt.toml
-       *.lock
-       *.md
-       *.org
+Files: *
+Copyright: 2022 Chris Montgomery <chris@cdom.io>
+License: GPL-3.0-or-later
+
+Files: .commitlintrc.json
+       .vscode/*
+       */.editorconfig
+       */.prettierignore
+       */.gitignore
+       */.prettierignore
+       */*.json
+       */*.lock
+       */*.toml
+       */*.yaml
 Copyright: 2022 Chris Montgomery <chris@cdom.io>
 License: CC0-1.0
+
+Files: */*.txt
+       */*.md
+       */*.mdoc
+       */*.markdown
+       */*.norg
+       */*.org
+Copyright: 2022 Chris Montgomery <chris@cdom.io>
+License: CC-BY-SA-4.0
