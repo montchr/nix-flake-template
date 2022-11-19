@@ -1,4 +1,5 @@
 {
+  "*": "treefmt --no-cache --",
   "*.!(md|org|txt)": "just license-gpl",
   "*.@(md|org|txt)": "just license-cc",
   "*.nix": "just evalnix"

@@ -39,12 +39,6 @@ in
           category = cats.maintenance;
           package = pkgs'.just;
         }
-        {
-          name = "fmt";
-          command = "treefmt src";
-          help = "Formats the project files";
-          category = cats.maintenance;
-        }
       ];
       imports = [std.std.devshellProfiles.default];
     };

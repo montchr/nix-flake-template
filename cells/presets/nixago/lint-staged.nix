@@ -6,6 +6,7 @@
   l = inputs.nixpkgs.lib // builtins;
   docExts = l.concatStringsSep "|" ["md" "org" "txt"];
 in {
+  "*" = "treefmt --no-cache --";
   "*.!(${docExts})" = "just license-gpl";
   "*.@(${docExts})" = "just license-cc";
   "*.nix" = "just evalnix";
