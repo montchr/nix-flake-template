@@ -1,6 +1,7 @@
 # SPDX-FileCopyrightText: 2022 Chris Montgomery <chris@cdom.io>
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
+
 {
   inputs,
   cell,
@@ -25,12 +26,6 @@ in
         (presets.nixago.lint-staged {hook.mode = "copy";})
         (presets.nixago.prettier {})
         (presets.nixago.treefmt {})
-        (std.std.nixago.just {
-          configData.tasks = mergeAll (l.map import [
-            ./tasks/reuse.nix
-            ./tasks/linting.nix
-          ]);
-        })
       ];
       packages = [
         pkgs'.gh
@@ -39,6 +34,10 @@ in
         {
           category = cats.maintenance;
           package = pkgs'.reuse;
+        }
+        {
+          category = cats.maintenance;
+          package = pkgs'.just;
         }
         {
           name = "fmt";
