@@ -29,7 +29,6 @@
         (blockTypes.functions "functions")
 
         #: presets
-        (blockTypes.data "templates")
         (blockTypes.nixago "nixago")
 
         ##: --- internal ---
@@ -44,7 +43,10 @@
     {
       devShells = harvest self ["_automation" "devshells"];
       packages = harvest self [["_automation" "packages"]];
-      templates = harvest self ["core" "templates"];
+      templates.default = {
+        path = ./.;
+        description = "nix-flake-template";
+      };
     };
 
   nixConfig = {
