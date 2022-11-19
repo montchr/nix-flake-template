@@ -1,7 +1,5 @@
 # SPDX-FileCopyrightText: 2022 Chris Montgomery <chris@cdom.io>
-#
 # SPDX-License-Identifier: GPL-3.0-or-later
-
 {
   commit-msg = {
     commands = {
@@ -21,6 +19,11 @@
         run = "lint-staged {staged_files}";
         skip = ["merge" "rebase"];
       };
+    };
+  };
+  pre-push = {
+    commands = {
+      check-licenses.run = "reuse lint";
     };
   };
 }

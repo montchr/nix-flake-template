@@ -1,4 +1,6 @@
 copyright := 'Chris Montgomery <chris@cdom.io>'
+default-license := 'GPL-3.0-or-later'
+docs-license := 'CC-BY-SA-4.0'
 
 
 ##: --- linting ---
@@ -20,8 +22,8 @@ fmt-changed:
 
 # Add a CC-BY-SA-4.0 license header to the specified files
 license-cc +FILES:
-  reuse addheader -l 'CC-BY-SA-4.0' -c '{{copyright}}' {{FILES}}
+  reuse addheader -l {{docs-license}} -c '{{copyright}}' {{FILES}}
 
 # Add the project default license header to the specified files
 license-gpl +FILES:
-  reuse addheader -l 'GPL-3.0-or-later' -c '{{copyright}}' {{FILES}}
+  reuse addheader -l {{default-license}} -c '{{copyright}}' {{FILES}}
