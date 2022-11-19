@@ -1,7 +1,6 @@
 # SPDX-FileCopyrightText: 2022 Chris Montgomery <chris@cdom.io>
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
-
 {
   inputs,
   cell,
@@ -21,7 +20,6 @@ in
       name = "nix-flake-template";
       nixago = [
         (presets.nixago.commitlint {})
-        (presets.nixago.editorconfig {hook.mode = "copy";})
         (presets.nixago.lefthook {})
         (presets.nixago.lint-staged {hook.mode = "copy";})
         (presets.nixago.prettier {})
