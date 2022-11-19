@@ -4,8 +4,8 @@ copyright := 'Chris Montgomery <chris@cdom.io>'
 ##: --- linting ---
 
 # Check for Nix syntax errors
-evalnix file:
-  nix-instantiate --parse --quiet {{file}} >/dev/null
+evalnix +FILES:
+  nix-instantiate --parse --quiet {{FILES}} >/dev/null
 
 # Format source files
 fmt +FILES:
