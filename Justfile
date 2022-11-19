@@ -5,7 +5,7 @@ copyright := 'Chris Montgomery <chris@cdom.io>'
 
 # Check for Nix syntax errors
 evalnix file:
-    nix-instantiate --parse --quiet {{file}}
+    nix-instantiate --parse --quiet {{file}} >/dev/null
 
 # Format all changed source files
 fmt:
