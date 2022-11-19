@@ -7,7 +7,7 @@
   docExts = l.concatStringsSep "|" ["md" "org" "txt"];
 in {
   "*" = "treefmt --no-cache --";
-  "*.!(${docExts})" = "just license-gpl";
-  "*.@(${docExts})" = "just license-cc";
+  "*.!(${docExts})" = "just license-gpl --skip-unrecognised";
+  "*.@(${docExts})" = "just license-cc --skip-unrecognised";
   "*.nix" = "just evalnix";
 }
