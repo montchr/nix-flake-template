@@ -1,0 +1,4 @@
+{
+  "*": "treefmt --no-cache --",
+  "*.nix": "just evalnix"
+}

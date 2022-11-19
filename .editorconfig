@@ -2,33 +2,40 @@
 #
 # SPDX-License-Identifier: CC0-1.0
 
-# http://editorconfig.org
 root = true
 
 [*]
-charset = utf-8
-end_of_line = lf
-trim_trailing_whitespace = true
-insert_final_newline = true
-indent_style = space
-indent_size = 2
+charset=utf-8
+end_of_line=lf
+indent_size=2
+indent_style=space
+insert_final_newline=true
+trim_trailing_whitespace=true
 
-[*.{xml,plist,php,py}]
-indent_size = 4
-indent_style = space
+[*.md]
+indent_size=4
+indent_style=space
+trim_trailing_whitespace=false
 
-# Ignore diffs/patches
+[*.{bash,sh}]
+binary_next_line=true
+simplify=true
+switch_case_indent=true
+
 [*.{diff,patch}]
-end_of_line = unset
-insert_final_newline = unset
-trim_trailing_whitespace = unset
-indent_size = unset
+end_of_line=unset
+indent_size=unset
+insert_final_newline=unset
+trim_trailing_whitespace=unset
 
-# Ignore secrets
-[secrets/**]
-end_of_line = unset
-insert_final_newline = unset
-trim_trailing_whitespace = unset
-charset = unset
-indent_style = unset
-indent_size = unset
+[*.{plist,php,py,xml}]
+indent_size=4
+indent_style=space
+
+[{LICENSES/**,LICENSE,secrets/**}]
+charset=unset
+end_of_line=unset
+indent_size=unset
+indent_style=unset
+insert_final_newline=unset
+trim_trailing_whitespace=unset

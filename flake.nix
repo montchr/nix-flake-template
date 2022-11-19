@@ -1,40 +1,50 @@
 # SPDX-FileCopyrightText: 2022 Chris Montgomery <chris@cdom.io>
+#
 # SPDX-License-Identifier: GPL-3.0-or-later
 {
   description = "nix-flake-template";
 
-  inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+  inputs.std.url = "github:divnix/std";
+  inputs.std.inputs.nixpkgs.follows = "nixpkgs";
+  inputs.std.inputs.mdbook-kroki-preprocessor.follows = "std/blank";
 
-    devshell.url = "github:numtide/devshell";
-    flake-parts.url = "github:hercules-ci/flake-parts";
-    treefmt-flake.url = "github:srid/treefmt-flake";
-    nixago.url = "github:nix-community/nixago";
+  inputs.dmerge.follows = "std/dmerge";
 
-    devshell.inputs.nixpkgs.follows = "nixpkgs";
-    flake-parts.inputs.nixpkgs-lib.follows = "nixpkgs";
-    nixago.inputs.nixpkgs.follows = "nixpkgs";
-  };
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
   outputs = {
+    std,
     self,
-    flake-parts,
-    treefmt-flake,
     ...
-  }: let
-    systems = ["x86_64-linux" "x86_64-darwin" "aarch64-darwin" "aarch64-linux"];
+  } @ inputs: let
+    inherit (std) blockTypes growOn harvest;
   in
-    flake-parts.lib.mkFlake
-    {inherit self;}
-    {
-      inherit systems;
-      imports = [
-        treefmt-flake.flakeModule
-        ./nix
+    growOn {
+      inherit inputs;
+      cellsFrom = ./cells;
+      cellBlocks = [
+        ##: --- public ---
+
+        #: lib
+        (blockTypes.functions "functions")
+
+        #: presets
+        (blockTypes.data "templates")
+        (blockTypes.nixago "nixago")
+
+        ##: --- internal ---
+
+        #: _automation
+        (blockTypes.devshells "devshells")
+        (blockTypes.installables "packages")
+        (blockTypes.nixago "nixago")
+        (blockTypes.nixago "configs")
       ];
-      flake = {
-        project.meta.name = "nix-flake-template";
-      };
+    }
+    {
+      devShells = harvest self ["_automation" "devshells"];
+      packages = harvest self [["_automation" "packages"]];
+      templates = harvest self ["core" "templates"];
     };
 
   nixConfig = {
