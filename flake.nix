@@ -35,17 +35,14 @@
         ##: --- internal ---
 
         #: _automation
-        (blockTypes.installables "packages")
-
-        #: core
-        # FIXME: move to `_automation`
         (blockTypes.devshells "devshells")
+        (blockTypes.installables "packages")
         (blockTypes.nixago "nixago")
         (blockTypes.nixago "configs")
       ];
     }
     {
-      devShells = harvest self ["core" "devshells"];
+      devShells = harvest self ["_automation" "devshells"];
       packages = harvest self [["_automation" "packages"]];
       templates = harvest self ["core" "templates"];
     };

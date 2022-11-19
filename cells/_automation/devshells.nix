@@ -5,26 +5,32 @@
   inputs,
   cell,
 }: let
-  inherit (inputs) cells std;
+  inherit (inputs) dmerge std;
+  inherit (inputs.cells) presets;
   l = inputs.nixpkgs.lib // builtins;
   l' = inputs.cells.lib.functions;
   pkgs' = inputs.nixpkgs;
   cats = l'.enumAttrs [
     "maintenance"
   ];
+  mergeAll = l.foldl' dmerge.merge {};
 in
   l.mapAttrs (_: std.lib.dev.mkShell) {
     default = {...}: {
       name = "nix-flake-template";
       nixago = [
-        cell.configs.commitlint
-        cell.configs.editorconfig
-        cell.configs.just
-        cell.configs.lefthook
-        cell.configs.lint-staged
-        cell.configs.prettier
-        cell.configs.treefmt
-        cells.reuse.configs.just
+        (presets.nixago.commitlint {})
+        (presets.nixago.editorconfig {hook.mode = "copy";})
+        (presets.nixago.lefthook {})
+        (presets.nixago.lint-staged {hook.mode = "copy";})
+        (presets.nixago.prettier {})
+        (presets.nixago.treefmt {})
+        (std.std.nixago.just {
+          configData.tasks = mergeAll (l.map import [
+            ./tasks/reuse.nix
+            ./tasks/linting.nix
+          ]);
+        })
       ];
       packages = [
         pkgs'.gh

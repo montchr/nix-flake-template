@@ -4,6 +4,10 @@
 # NOTE: Without Nix, you are responsible for having all task dependencies
 # available locally!
 
+# Format all changed source files
+fmt:
+    treefmt $(git diff --name-only --cached)
+
 # Add a CC-BY-SA-4.0 license header to all or specified files
 license-cc +FILES:
     reuse addheader -l 'CC-BY-SA-4.0' -c 'Chris Montgomery <chris@cdom.io>' '{{ FILES }}'

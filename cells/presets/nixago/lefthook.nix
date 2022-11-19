@@ -17,6 +17,10 @@
   pre-commit = {
     parallel = false;
     commands = {
+      lint-staged = {
+        run = "lint-staged {staged_files}";
+        skip = ["merge" "rebase"];
+      };
       treefmt = {
         run = "treefmt --fail-on-change {staged_files}";
         skip = [
@@ -24,12 +28,6 @@
           "rebase"
         ];
       };
-      # FIXME: add lint-staged pebble
-
-      # lint-staged = {
-      #   run = "lint-staged {staged_files}";
-      #   skip = ["merge" "rebase"];
-      # };
     };
   };
 }
