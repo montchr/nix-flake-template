@@ -10,17 +10,28 @@ public-domain-license := 'CC0-1.0'
 
 ##: --- linting ---
 
-# Check for Nix syntax errors
-evalnix +FILES:
-  nix-instantiate --parse --quiet {{FILES}} >/dev/null
-
 # Format source files
 fmt +FILES:
   treefmt --no-cache {{FILES}}
 
 # Format all changed source files
 fmt-changed:
+  @echo 'Formatting all changed source files in working tree'
   treefmt --no-cache `git diff --name-only --cached`
+
+# Check for Nix syntax errors
+evalnix file:
+  @echo "Checking {{file}} for syntax errors"
+  nix-instantiate --parse --quiet {{file}} >/dev/null
+
+# Check Nix files for unused statements
+deadnix *ARGS='$PRJ_ROOT':
+  @echo 'Checking Nix files for dead code...'
+  deadnix check --no-underscore --fail \
+    --no-lambda-arg \
+    --no-lambda-pattern-names \
+    {{ARGS}}
+  @echo 'Done'
 
 
 ##: --- licensing ---
