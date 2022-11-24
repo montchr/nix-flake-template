@@ -26,6 +26,7 @@
         "*.ts"
         "*.tsx"
         "*.yaml"
+        "*.yml"
       ];
     };
     shell = {
