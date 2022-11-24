@@ -1,19 +1,14 @@
 # SPDX-FileCopyrightText: 2022 Chris Montgomery <chris@cdom.io>
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
-{
-  inputs,
-  cell,
-}: let
-  inherit (inputs) dmerge std;
-  inherit (inputs.cells) presets;
+{inputs}: let
+  inherit (inputs) nixpkgs std;
+  inherit (inputs.cells) lib presets;
   l = inputs.nixpkgs.lib // builtins;
   l' = inputs.cells.lib.functions;
-  pkgs' = inputs.nixpkgs;
   cats = l'.enumAttrs [
     "maintenance"
   ];
-  mergeAll = l.foldl' dmerge.merge {};
 in
   l.mapAttrs (_: std.lib.dev.mkShell) {
     default = {...}: {
@@ -23,6 +18,13 @@ in
         (presets.nixago.lefthook {})
         (presets.nixago.prettier {})
         (presets.nixago.treefmt {})
+
+        (presets.nixago.statix {
+          configData = {
+            disabled = ["useless_parens"];
+          };
+        })
+
         (lib.nixago.lint-staged {
           hook.mode = "copy";
           configData = {
@@ -31,17 +33,15 @@ in
           };
         })
       ];
-      packages = [
-        pkgs'.gh
-      ];
+      packages = [nixpkgs.gh];
       commands = [
         {
           category = cats.maintenance;
-          package = pkgs'.reuse;
+          package = nixpkgs.reuse;
         }
         {
           category = cats.maintenance;
-          package = pkgs'.just;
+          package = nixpkgs.just;
         }
       ];
       imports = [std.std.devshellProfiles.default];
