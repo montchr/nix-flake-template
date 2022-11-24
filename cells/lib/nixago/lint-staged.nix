@@ -3,12 +3,9 @@
 {
   inputs,
   cell,
-}: let
-  # FIXME: should probably relocate this package to the current cell
-  inherit (inputs.cells) _automation;
-in {
-  configData = {};
+}: {
   output = ".lintstagedrc.json";
   format = "json";
-  packages = [_automation.packages.lint-staged];
+  configData = {};
+  packages = [cell.packages.lint-staged];
 }

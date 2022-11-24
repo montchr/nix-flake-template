@@ -21,9 +21,15 @@ in
       nixago = [
         (presets.nixago.commitlint {})
         (presets.nixago.lefthook {})
-        (presets.nixago.lint-staged {hook.mode = "copy";})
         (presets.nixago.prettier {})
         (presets.nixago.treefmt {})
+        (lib.nixago.lint-staged {
+          hook.mode = "copy";
+          configData = {
+            "*" = "treefmt --no-cache --";
+            "*.nix" = "just evalnix";
+          };
+        })
       ];
       packages = [
         pkgs'.gh
