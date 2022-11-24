@@ -1,37 +1,34 @@
 # SPDX-FileCopyrightText: 2022 Chris Montgomery <chris@cdom.io>
-#
 # SPDX-License-Identifier: GPL-3.0-or-later
+
+icon-ok := '✔'
+msg-ok := icon-ok + " OK"
+msg-done := icon-ok + " Done"
 
 copyright := 'Chris Montgomery <chris@cdom.io>'
 default-license := 'GPL-3.0-or-later'
 docs-license := 'CC-BY-SA-4.0'
 public-domain-license := 'CC0-1.0'
 
+cachix-cache-name := 'nix-flake-template'
+cachix-exec := "cachix watch-exec --jobs 2 " + cachix-cache-name
 
-##: --- linting ---
+
+###: LINTING/FORMATTING ========================================================
 
 # Format source files
-fmt +FILES:
-  treefmt --no-cache {{FILES}}
+fmt *FILES="$PRJ_ROOT":
+  treefmt --no-cache \
+    --config-file $PRJ_ROOT/treefmt.toml \
+    --tree-root $PRJ_ROOT \
+    {{FILES}}
 
-# Format all changed source files
-fmt-changed:
-  @echo 'Formatting all changed source files in working tree'
-  treefmt --no-cache `git diff --name-only --cached`
-
-# Check for Nix syntax errors
-evalnix file:
-  @echo "Checking {{file}} for syntax errors"
-  nix-instantiate --parse --quiet {{file}} >/dev/null
-
-# Check Nix files for unused statements
-deadnix *ARGS='$PRJ_ROOT':
-  @echo 'Checking Nix files for dead code...'
-  deadnix check --no-underscore --fail \
-    --no-lambda-arg \
-    --no-lambda-pattern-names \
-    {{ARGS}}
-  @echo 'Done'
+# Write automatic linter fixes to source files
+fix *FILES="$PRJ_ROOT":
+  treefmt --no-cache \
+    --config-file $PRJ_ROOT/treefmt.lint-fix.toml \
+    --tree-root $PRJ_ROOT \
+    {{FILES}}
 
 
 ##: --- licensing ---

@@ -68,6 +68,7 @@ out/
 
 
 # nixago: ignore-linked-files
+treefmt.lint-fix.toml
 .commitlintrc.json
 treefmt.toml
 lefthook.yml

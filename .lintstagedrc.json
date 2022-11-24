@@ -1,4 +1,6 @@
 {
-  "*": "treefmt --no-cache --",
-  "*.nix": "just evalnix"
+  "*": [
+    "just fix",
+    "just fmt"
+  ]
 }

@@ -1,7 +1,10 @@
 # SPDX-FileCopyrightText: 2022 Chris Montgomery <chris@cdom.io>
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
-{inputs}: let
+{
+  inputs,
+  cell,
+}: let
   inherit (inputs) nixpkgs std;
   inherit (inputs.cells) lib presets;
   l = inputs.nixpkgs.lib // builtins;
@@ -17,6 +20,8 @@ in
         (presets.nixago.commitlint {})
         (presets.nixago.lefthook {})
         (presets.nixago.prettier {})
+        (cell.nixago.treefmt-lint-fix {})
+
         (presets.nixago.treefmt {})
 
         (presets.nixago.statix {
@@ -28,8 +33,7 @@ in
         (lib.nixago.lint-staged {
           hook.mode = "copy";
           configData = {
-            "*" = "treefmt --no-cache --";
-            "*.nix" = "just evalnix";
+            "*" = ["just fix" "just fmt"];
           };
         })
       ];
