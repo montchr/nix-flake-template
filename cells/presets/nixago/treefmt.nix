@@ -34,7 +34,7 @@
       command = "shfmt";
       # shfmt will read settings from `.editorconfig` as long as no parser or
       # printer flags are passed. See `man shfmt` for details.
-      options = ["--write"];
+      options = ["--simplify" "--write"];
       includes = ["*.sh" "*.bash"];
     };
   };
