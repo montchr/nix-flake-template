@@ -28,6 +28,7 @@
         "*.yaml"
         "*.yml"
       ];
+      excludes = ["_sources/**"];
     };
     shell = {
       command = "shfmt";
