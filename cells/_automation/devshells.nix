@@ -25,13 +25,6 @@ in
             disabled = ["useless_parens"];
           };
         })
-
-        (lib.nixago.lint-staged {
-          hook.mode = "copy";
-          configData = {
-            "*" = ["just fix" "just fmt"];
-          };
-        })
       ];
       packages = [
         nixpkgs.deadnix

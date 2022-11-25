@@ -1,10 +1,12 @@
 # SPDX-FileCopyrightText: 2022 Chris Montgomery <chris@cdom.io>
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
-{inputs, cell}: let
+{
+  inputs,
+  cell,
+}: let
   l = inputs.nixpkgs.lib // builtins;
 in {
-
   /*
   Functional sugar for a simple conditional ternary statement.
 
