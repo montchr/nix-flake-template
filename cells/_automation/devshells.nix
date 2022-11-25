@@ -18,8 +18,6 @@ in
         (presets.nixago.commitlint {})
         (presets.nixago.lefthook {})
         (presets.nixago.prettier {})
-        (cell.nixago.treefmt-lint-fix {})
-
         (presets.nixago.treefmt {})
 
         (presets.nixago.statix {

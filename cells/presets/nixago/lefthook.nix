@@ -15,8 +15,8 @@
   };
   pre-commit = {
     commands = {
-      lint-staged = {
-        run = "lint-staged {staged_files}";
+      lint-then-fmt = {
+        run = "just fmt {staged_files}";
         skip = ["merge" "rebase"];
       };
     };

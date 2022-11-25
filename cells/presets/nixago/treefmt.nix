@@ -4,10 +4,38 @@
 {
   formatter = {
     nix = {
-      command = "alejandra";
+      command = "sh";
+      options = [
+        "-euc"
+        ''
+          just statix check "$@"
+          just deadnix check "$@"
+          alejandra "$@"
+        ''
+        "--"
+      ];
       includes = ["*.nix"];
       excludes = [
         "**/_sources/*"
+      ];
+    };
+    js = {
+      command = "sh";
+      options = [
+        "-eucx"
+        ''
+          prettier --write "$@"
+          eslint "$@"
+        ''
+        "--"
+      ];
+      includes = [
+        "*.cjs"
+        "*.js"
+        "*.jsx"
+        "*.mjs"
+        "*.ts"
+        "*.tsx"
       ];
     };
     prettier = {
@@ -16,15 +44,11 @@
       includes = [
         "*.css"
         "*.html"
-        "*.js"
         "*.json"
-        "*.jsx"
         "*.md"
         "*.mdx"
         "*.scss"
         "*.toml"
-        "*.ts"
-        "*.tsx"
         "*.yaml"
         "*.yml"
       ];

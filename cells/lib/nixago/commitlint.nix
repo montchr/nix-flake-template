@@ -6,7 +6,6 @@
   inputs,
   cell,
 }: let
-  inherit (inputs) std;
   pkgs' = inputs.nixpkgs;
 in {
   configData = {};
