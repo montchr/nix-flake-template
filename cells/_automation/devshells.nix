@@ -8,10 +8,7 @@
   inherit (inputs) nixpkgs std;
   inherit (inputs.cells) lib presets;
   l = inputs.nixpkgs.lib // builtins;
-  l' = inputs.cells.lib.functions;
-  cats = l'.enumAttrs [
-    "maintenance"
-  ];
+  cats = cell.devshellCategories;
 in
   l.mapAttrs (_: std.lib.dev.mkShell) {
     default = {...}: {
