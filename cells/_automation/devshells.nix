@@ -8,11 +8,12 @@
   inherit (inputs) nixpkgs std;
   inherit (inputs.cells) lib presets;
   l = inputs.nixpkgs.lib // builtins;
+  name = "nix-flake-template";
   cats = cell.devshellCategories;
 in
   l.mapAttrs (_: std.lib.dev.mkShell) {
     default = {...}: {
-      name = "nix-flake-template";
+      inherit name;
       nixago = [
         (presets.nixago.commitlint {})
         (presets.nixago.lefthook {})
@@ -34,7 +35,13 @@ in
           };
         })
       ];
-      packages = [nixpkgs.gh];
+      packages = [
+        nixpkgs.deadnix
+        nixpkgs.gh
+        nixpkgs.reuse
+        nixpkgs.statix
+        nixpkgs.treefmt
+      ];
       commands = [
         {
           category = cats.maintenance;

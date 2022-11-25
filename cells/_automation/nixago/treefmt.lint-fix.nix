@@ -10,7 +10,6 @@
           for f in "$@"; do
             statix fix -- "$f"
           done
-          deadnix --edit "$@"
         ''
         "--"
       ];

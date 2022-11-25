@@ -9,7 +9,6 @@ in
       configData = import ./nixago/treefmt.lint-fix.nix;
       output = "treefmt.lint-fix.toml";
       packages = [
-        nixpkgs.deadnix
         nixpkgs.statix
         nixpkgs.treefmt
         nixpkgs.nodePackages.eslint

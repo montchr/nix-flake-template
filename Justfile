@@ -30,8 +30,12 @@ fix *FILES="$PRJ_ROOT":
     --tree-root $PRJ_ROOT \
     {{FILES}}
 
+# Prune dead code from project files
+prune *FILES="$PRJ_ROOT":
+  deadnix --edit "{{FILES}}"
 
-##: --- licensing ---
+
+###: LICENSING =================================================================
 
 # Add the project default license header to the specified files
 alias license := license-gpl
