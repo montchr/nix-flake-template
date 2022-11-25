@@ -44,12 +44,12 @@ in
       ];
       commands = [
         {
-          category = cats.maintenance;
           package = nixpkgs.reuse;
+          category = cats.legal;
         }
         {
-          category = cats.maintenance;
           package = nixpkgs.just;
+          category = cats.general;
         }
       ];
       imports = [std.std.devshellProfiles.default];
