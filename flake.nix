@@ -27,6 +27,8 @@
 
         #: lib
         (blockTypes.functions "functions")
+        (blockTypes.nixago "nixago")
+        (blockTypes.installables "packages")
 
         #: presets
         (blockTypes.nixago "nixago")
@@ -35,9 +37,7 @@
 
         #: _automation
         (blockTypes.devshells "devshells")
-        (blockTypes.installables "packages")
         (blockTypes.nixago "nixago")
-        (blockTypes.nixago "configs")
       ];
     }
     {
