@@ -19,11 +19,11 @@ cachix-exec := "cachix watch-exec --jobs 2 " + cachix-cache-name
 ###: LINTING/FORMATTING ========================================================
 
 # Lint and format files
-fmt *FILES="$PRJ_ROOT":
+fmt *FILES=prj-root:
   treefmt --no-cache {{FILES}}
 
 # Write automatic linter fixes to files
-lint-fix *FILES="$PRJ_ROOT": (deadnix "fix" FILES) (statix "fix" FILES)
+lint-fix *FILES=prj-root: (deadnix "fix" FILES) (statix "fix" FILES)
 
 # Run `statix`
 statix action +FILES=prj-root:
@@ -40,7 +40,6 @@ deadnix action +FILES=prj-root:
     --no-underscore \
     --no-lambda-pattern-names \
     {{FILES}}
-
 
 
 ###: LICENSING =================================================================
