@@ -6,7 +6,7 @@
   cell,
 }: let
   inherit (inputs) nixpkgs std;
-  inherit (inputs.cells) lib presets;
+  inherit (inputs.cells) presets;
   l = inputs.nixpkgs.lib // builtins;
   name = "nix-flake-template";
   cats = cell.devshellCategories;
@@ -16,6 +16,7 @@ in
       inherit name;
       nixago = [
         (presets.nixago.commitlint {})
+        (presets.nixago.editorconfig {})
         (presets.nixago.lefthook {})
         (presets.nixago.prettier {})
         (presets.nixago.treefmt {})

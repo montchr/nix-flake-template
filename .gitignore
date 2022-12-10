@@ -88,6 +88,7 @@ Icon
 
 # NOTE: DO NOT EDIT NEXT LINE
 # nixago: ignore-linked-files
+.editorconfig
 statix.toml
 treefmt.lint-fix.toml
 .commitlintrc.json
