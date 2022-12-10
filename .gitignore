@@ -8,7 +8,6 @@
 ##: nix
 .std
 result
-/**/flake.lock
 
 ##: build artifacts
 *.qcow2
