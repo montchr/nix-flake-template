@@ -7,5 +7,5 @@ Files: .vscode/*
        .yarn/*
        *.json
        *.lock
-Copyright: 2022 Chris Montgomery <chris@cdom.io>
+Copyright: 2022-2023 Chris Montgomery <chris@cdom.io>
 License: CC0-1.0
