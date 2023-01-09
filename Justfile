@@ -1,22 +1,38 @@
 # SPDX-FileCopyrightText: 2022 Chris Montgomery <chris@cdom.io>
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-prj-root := env_var('PRJ_ROOT')
+###: https://just.systems/man/en/
 
+default:
+  @just --list --unsorted --color=always | rg -v "    default"
+
+##: feedback
 icon-ok := '✔'
 msg-ok := icon-ok + " OK"
 msg-done := icon-ok + " Done"
 
+##: legal/reuse
 copyright := 'Chris Montgomery <chris@cdom.io>'
 default-license := 'GPL-3.0-or-later'
 docs-license := 'CC-BY-SA-4.0'
 public-domain-license := 'CC0-1.0'
 
+##: binary cache
 cachix-cache-name := 'nix-flake-template'
 cachix-exec := "cachix watch-exec --jobs 2 " + cachix-cache-name
 
+##: directories/paths
+prj-root := env_var('PRJ_ROOT')
+# TODO: use env var for prj name?
+prj-name := 'nix-flake-template'
+# `package.json` runnables
+export PATH := "./node_modules/.bin:" + env_var('PATH')
+
 
 ###: LINTING/FORMATTING ========================================================
+
+# <- Lint files
+lint *FILES=prj-root: (deadnix "check" FILES) (statix "check" FILES)
 
 # Lint and format files
 fmt *FILES=prj-root:
@@ -25,7 +41,8 @@ fmt *FILES=prj-root:
 # Write automatic linter fixes to files
 lint-fix *FILES=prj-root: (deadnix "fix" FILES) (statix "fix" FILES)
 
-# Run `statix`
+# <- Run `statix`
+[private]
 statix action +FILES=prj-root:
   @ # Note that stderr is silenced due to an upstream bug
   @ # https://github.com/nerdypepper/statix/issues/59
@@ -33,7 +50,8 @@ statix action +FILES=prj-root:
     statix {{action}} -- "$f" 2>/dev/null; \
   done
 
-# Run `deadnix` with sane options
+# <- Run `deadnix` with sane options
+[private]
 deadnix action +FILES=prj-root:
   @deadnix \
     {{ if action == "fix" { "--edit" } else { "--fail" } }} \
