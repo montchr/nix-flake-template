@@ -62,3 +62,13 @@ license-cc +FILES:
 # Add a public domain CC0-1.0 license header to the specified files
 license-public-domain +FILES:
   reuse addheader -l {{public-domain-license}} -c '{{copyright}}' {{FILES}}
+
+###: BOOTSTRAPPING =================================================================
+
+# TODO: run automatically on first init somehow
+_rename-on-init name:
+  mv .vscode/{{prj-name}}.code-snippets .vscode/{{name}}.code-snippets
+  mv .vscode/{{prj-name}}.code-workspace .vscode/{{name}}.code-workspace
+  fd --type file --hidden \
+    -E '.git' -E '.direnv' -E 'node_modules' -E '.std' \
+    . --exec-batch sd {{prj-name}} {{name}} {}
