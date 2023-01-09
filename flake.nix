@@ -3,50 +3,47 @@
 {
   description = "nix-flake-template";
 
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+  inputs.flake-parts.url = "github:hercules-ci/flake-parts";
   inputs.std.url = "github:divnix/std";
   inputs.std.inputs.nixpkgs.follows = "nixpkgs";
-  inputs.std.inputs.mdbook-kroki-preprocessor.follows = "std/blank";
 
   inputs.dmerge.follows = "std/dmerge";
 
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-
-  outputs = {
-    std,
-    self,
-    ...
-  } @ inputs: let
-    inherit (std) blockTypes growOn harvest;
-  in
-    growOn {
-      inherit inputs;
-      cellsFrom = ./cells;
-      cellBlocks = [
+  outputs = {flake-parts, ...} @ inputs:
+    flake-parts.lib.mkFlake {inherit inputs;} {
+      systems = ["aarch64-darwin" "aarch64-linux" "x86_64-darwin" "x86_64-linux"];
+      std.grow.cellsFrom = ./cells;
+      std.grow.cellBlocks = with inputs.std.blockTypes; [
         ##: --- public ---
 
         #: lib
-        (blockTypes.functions "functions")
-        (blockTypes.nixago "nixago")
-        (blockTypes.installables "packages")
+        (functions "functions")
+        (nixago "nixago")
+        (installables "packages")
 
         #: presets
-        (blockTypes.nixago "nixago")
+        (nixago "nixago")
 
         ##: --- internal ---
 
         #: _automation
-        (blockTypes.devshells "devshells")
-        (blockTypes.data "devshellCategories")
-        (blockTypes.nixago "nixago")
+        (devshells "devshells")
+        (data "devshellCategories")
+        (nixago "nixago")
       ];
-    }
-    {
-      devShells = harvest self ["_automation" "devshells"];
-      packages = harvest self [["_automation" "packages"]];
-      templates.default = {
+      std.harvest = {
+        devShells = [["_automation" "devshells"]];
+        packages = [["_automation" "packages"]];
+      };
+      # FIXME: this is required, but shouldn't be -- needs upstream fix
+      # https://github.com/divnix/std/issues/235
+      std.grow.nixpkgsConfig = {};
+      flake.templates.default = {
         path = ./.;
         description = "nix-flake-template";
       };
+      imports = [inputs.std.flakeModule];
     };
 
   nixConfig = {

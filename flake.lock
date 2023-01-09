@@ -65,6 +65,24 @@
         "type": "github"
       }
     },
+    "flake-parts": {
+      "inputs": {
+        "nixpkgs-lib": "nixpkgs-lib"
+      },
+      "locked": {
+        "lastModified": 1673047662,
+        "narHash": "sha256-dXYxH/0Ea5oQSkGAWWNy7HzmFutguycDGn2dt6lTYRQ=",
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "rev": "aa1f6ca773b6e740037ebfb35f7010e0c3960638",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "type": "github"
+      }
+    },
     "flake-utils": {
       "locked": {
         "lastModified": 1659877975,
@@ -157,14 +175,32 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1670507980,
-        "narHash": "sha256-riNZa0xzM1it3pzxciwALeMs+0CsBMWIW2FqulzK8vM=",
+        "lastModified": 1672953546,
+        "narHash": "sha256-oz757DnJ1ITvwyTovuwG3l9cX6j9j6/DH9eH+cXFJmc=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "2787fc7d1e51404678614bf0fe92fc296746eec0",
+        "rev": "a518c77148585023ff56022f09c4b2c418a51ef5",
         "type": "github"
       },
       "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs-lib": {
+      "locked": {
+        "dir": "lib",
+        "lastModified": 1672350804,
+        "narHash": "sha256-jo6zkiCabUBn3ObuKXHGqqORUMH27gYDIFFfLq5P4wg=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "677ed08a50931e38382dbef01cba08a8f7eac8f6",
+        "type": "github"
+      },
+      "original": {
+        "dir": "lib",
         "owner": "NixOS",
         "ref": "nixos-unstable",
         "repo": "nixpkgs",
@@ -192,6 +228,7 @@
           "std",
           "dmerge"
         ],
+        "flake-parts": "flake-parts",
         "nixpkgs": "nixpkgs",
         "std": "std"
       }
@@ -211,10 +248,6 @@
           "std",
           "blank"
         ],
-        "mdbook-kroki-preprocessor": [
-          "std",
-          "blank"
-        ],
         "microvm": [
           "std",
           "blank"
@@ -228,11 +261,11 @@
         "yants": "yants"
       },
       "locked": {
-        "lastModified": 1670364577,
-        "narHash": "sha256-dMIUIOv5WDQY/bHBEoQH/Z2v7qU01CxNB1Uswq8QSnk=",
+        "lastModified": 1673226500,
+        "narHash": "sha256-e8CbGpxxfKiO8IFUlNxFkbIXepOPurZBQuHeH6/yHi4=",
         "owner": "divnix",
         "repo": "std",
-        "rev": "28ab21483243cb32203bc675bebab8306c466e90",
+        "rev": "7b19892d7633d06877f7f30ba48809520a59d280",
         "type": "github"
       },
       "original": {
