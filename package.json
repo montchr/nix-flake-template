@@ -1,5 +1,5 @@
 {
   "name": "nix-flake-template",
   "license": "GPL-3.0-or-later",
-  "packageManager": "yarn@3.3.0"
+  "packageManager": "yarn@3.8.5"
 }
